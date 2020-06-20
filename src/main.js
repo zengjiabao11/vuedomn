@@ -6,9 +6,14 @@ import './plugins/element.js'
 import './assets/global/global.css'
 import './assets/font/iconfont.css'
 import axios from 'axios'
-Vue.prototype.$http = axios;
+
 axios.defaults.baseURL='https://www.liulongbin.top:8888/api/private/v1/'
- 
+axios.interceptors.request.use(config =>{
+  
+  config.headers.Authorization = window.sessionStorage.getItem('token')
+  return config
+})
+Vue.prototype.$http = axios;
 Vue.config.productionTip = false
 
 new Vue({
